@@ -9,7 +9,7 @@ variable "region" {
 # data "aws_instance" "terraform_ami" {
 #   filter {
 #     name   = "tag:Name"
-#     values = ["terraform-workshop-do-not-delete"]
+#     values = ["terraform-workshop-image-do-not-delete"]
 #   }
 # }
 
