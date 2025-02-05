@@ -1,5 +1,5 @@
 variable "varcheck" {
-  default = "test"
+  default = ""
 }
 
 
@@ -10,7 +10,8 @@ resource "null_resource" "check_var" {
       if [ -z "${var.varcheck}" ]; then
         echo "ERROR: var was not assigned." >&2
         exit 1
-      else  
+        else
+        echo "var not empty"
       fi
     EOT
   }
