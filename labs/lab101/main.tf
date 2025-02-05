@@ -34,3 +34,25 @@ resource "aws_instance" "vm" {
 resource "time_sleep" "wait_for_ip" {
   create_duration = "10s"  # Wait for 10 seconds
 }
+
+resource "null_resource" "run_script" {
+  provisioner "local-exec" {
+    command = "echo 'Running a script after provisioning.'"
+  }
+}
+
+variable "varcheck" {
+  default = ""
+}
+
+resource "null_resource" "check_var" {
+  provisioner "local-exec" {
+    command = <<EOT
+      if [ -z "${var.varcheck}" ]; then
+        echo "ERROR: var was not assigned." >&2
+        exit 1
+      fi
+    EOT
+  }
+}
+
