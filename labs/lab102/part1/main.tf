@@ -30,6 +30,7 @@ variable "region" {
 
 data "aws_instance" "machine_ip" {
   instance_id = "i-09df7e0ed385f871b"
+  
 }
 
 output "instance_ip" {
