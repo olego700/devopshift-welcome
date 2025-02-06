@@ -36,7 +36,9 @@ resource "aws_security_group" "sg" {
  }
 }
 
-
+variable "machine_name" {
+  
+}
 
 resource "aws_instance" "vm" {
   ami           = var.amisetup
@@ -47,7 +49,7 @@ resource "aws_instance" "vm" {
 
 
  tags = {
-   Name = "yaniv-vm"
+   Name = var.machine_name
  }
 }
 

@@ -3,6 +3,7 @@ module "ec2_setup" {
   amisetup = "ami-0c02fb55956c7d316"
   region = "us-east-1"
   instance_type_setup = "t2.micro"
+  machine_name = "oleg-vm"
 
 }
 
