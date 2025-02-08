@@ -4,13 +4,13 @@ variable "subnet_id" {
 }
 
 variable "instance_type" {
-  
+  type = string
 }
 
 variable "ami_id" {
   description = "AMI ID for the instance"
   type        = string
-  default     = "ami-0c55b159cbfafe1f0"  # Ubuntu 22.04
+  default     = "ami-0c02fb55956c7d316" 
 }
 
 variable "assign_public_ip" {
