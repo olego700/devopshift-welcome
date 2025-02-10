@@ -5,7 +5,7 @@ while y:
     x=input("give me server name: ")
     try:
         n=serv[x]
-        if n:s
+        if n:
             print("server running:",n)
             y=False
     except:
