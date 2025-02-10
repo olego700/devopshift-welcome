@@ -1,0 +1,3 @@
+GITBRANCH=workshop/python
+GITURL=github.com/olego700/devopshift-welcome.git
+GITUSERNAME=olego700
