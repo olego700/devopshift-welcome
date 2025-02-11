@@ -1,0 +1,3 @@
+
+{"name":"docker","online":true,"cpus":1,"ram":1}
+{"name":"woper","online":true,"cpus":1,"ram":1}

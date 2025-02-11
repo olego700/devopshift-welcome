@@ -1,0 +1,2 @@
+{"name":"nginx", "online":true, "cpus":2, "ram":4}
+{"name":"docker", "online":false, "cpus":3, "ram":8}
