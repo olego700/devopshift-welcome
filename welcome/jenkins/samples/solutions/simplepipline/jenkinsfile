@@ -122,7 +122,7 @@ pipeline {
                         }
                     }
                 }
-            }
+            
 
     post {
         always {
@@ -132,4 +132,4 @@ pipeline {
             }
         }
     }
-
+}
