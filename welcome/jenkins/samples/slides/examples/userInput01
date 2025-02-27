@@ -45,6 +45,15 @@ pipeline {
             }
         }
 
+        stage('Archive Artifacts') {
+            steps {
+                dir("${PROJECT_HOME}") {
+                    archiveArtifacts artifacts: 'flask_app.log', allowEmptyArchive: true
+                        }
+                    }
+                }
+            
+
         // Run this stage regardless of the user choice but we will check the user choice in the stage and print a message
         stage('Finalize the Pipeline') {
             steps {
