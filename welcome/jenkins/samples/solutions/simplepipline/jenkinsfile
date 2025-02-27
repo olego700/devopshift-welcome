@@ -92,6 +92,7 @@ pipeline {
         }
 
         stage('Verify Application') {
+
             steps {
                 dir("${PROJECT_HOME}") {
                     script {
@@ -113,6 +114,15 @@ pipeline {
             }
         }
     }
+
+        stage('Archive Artifacts') {
+            steps {
+                dir("${PROJECT_HOME}") {
+                    archiveArtifacts artifacts: 'flask_app.log', allowEmptyArchive: true
+                        }
+                    }
+                }
+            }
 
     post {
         always {
