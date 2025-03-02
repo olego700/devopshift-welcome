@@ -3,10 +3,10 @@ pipeline {
 
     environment {
         PYTHON_VERSIONS = ['3.8', '3.9'] // Define Python versions for the matrix
-        DOCKERHUB_CREDENTIALS = 'dockerhub-credentials' // DockerHub credentials ID
-        REPO_NAME = 'your-dockerhub-username/python-fake-data-app' // DockerHub repository name
-        GITHUB_REPO = '???' // Update with your GitHub repository URL
-        GITHUB_BRANCH = '' // Update with your GitHub repository branch
+        DOCKERHUB_CREDENTIALS = 'd651925e-4d82-44d1-9cfe-618f30b38b0c' // DockerHub credentials ID
+        REPO_NAME = 'olego700/python-fake-data-app' // DockerHub repository name
+        GITHUB_REPO = https://github.com/olego700/devopshift-welcome.git // Update with your GitHub repository URL
+        GITHUB_BRANCH = 'jenkins-workshop' // Update with your GitHub repository branch
     }
 
     stages {
