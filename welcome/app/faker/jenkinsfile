@@ -33,11 +33,7 @@ pipeline {
                 axes {
                     axis {
                         name 'PYTHON_VERSION'
-                        values {
-                            script {
-                                return PYTHON_VERSIONS.split(',')
-                            }
-                        }
+                        values '3.8', '3.9'
                     }
                 }
                 stages {
@@ -61,11 +57,7 @@ pipeline {
                 axes {
                     axis {
                         name 'PYTHON_VERSION'
-                        values {
-                            script {
-                                return PYTHON_VERSIONS.split(',')
-                            }
-                        }
+                        values '3.8', '3.9'
                     }
                 }
                 stages {
@@ -85,11 +77,7 @@ pipeline {
                 axes {
                     axis {
                         name 'PYTHON_VERSION'
-                        values {
-                            script {
-                                return PYTHON_VERSIONS.split(',')
-                            }
-                        }
+                        values '3.8', '3.9'
                     }
                 }
                 stages {
@@ -101,15 +89,4 @@ pipeline {
                                 }
                             }
                         }
-                    }
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            echo "Pipeline completed."
-        }
-    }
-}
+ ▋
