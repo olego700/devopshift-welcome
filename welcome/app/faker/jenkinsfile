@@ -33,7 +33,11 @@ pipeline {
                 axes {
                     axis {
                         name 'PYTHON_VERSION'
-                        values PYTHON_VERSIONS.split(',') // Split the string into a list
+                        values {
+                            script {
+                                return PYTHON_VERSIONS.split(',')
+                            }
+                        }
                     }
                 }
                 stages {
@@ -57,7 +61,11 @@ pipeline {
                 axes {
                     axis {
                         name 'PYTHON_VERSION'
-                        values PYTHON_VERSIONS.split(',') // Split the string into a list
+                        values {
+                            script {
+                                return PYTHON_VERSIONS.split(',')
+                            }
+                        }
                     }
                 }
                 stages {
@@ -77,7 +85,11 @@ pipeline {
                 axes {
                     axis {
                         name 'PYTHON_VERSION'
-                        values PYTHON_VERSIONS.split(',') // Split the string into a list
+                        values {
+                            script {
+                                return PYTHON_VERSIONS.split(',')
+                            }
+                        }
                     }
                 }
                 stages {
