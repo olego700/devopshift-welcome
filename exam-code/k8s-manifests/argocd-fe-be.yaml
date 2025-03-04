@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/olego700/devopshift-welcome.git'
-    targetRevision: 'workshop/argo-jenkins-exam'
+    targetRevision: 'workshop/argo-jenkins-exam'  
     path: exam-code/k8s-manifests  
   destination:
     server: 'https://kubernetes.default.svc'
