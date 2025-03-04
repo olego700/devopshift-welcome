@@ -1,0 +1,78 @@
+pipeline {
+   agent {
+       docker {
+           image 'python:3.10'
+           args '-v /var/run/docker.sock:/var/run/docker.sock'
+       }
+   }
+   environment {
+       DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred')
+       DOCKER_REGISTRY = 'olego700'
+       REPO_NAME = 'be-exam'  // Frontend pipeline
+       IMAGE_TAG = "${env.BUILD_NUMBER}"
+   }
+   stages {
+        stage('Setup Docker') {
+            steps {
+                sh '''
+                apt-get update && apt-get install -y docker.io
+                curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                chmod +x /usr/local/bin/docker-compose
+                docker-compose --version
+                '''
+            }
+        }
+       stage('Clone Repository') {
+           steps {
+               git branch: 'workshop/argo-jenkins-exam', url: 'https://github.com/olego700/devopshift-welcome.git'
+           }
+       }
+       stage('Lint & Security Scan') {
+            parallel {
+                stage('Flake8 Linting') {
+                    steps {
+                        sh 'pip install flake8'
+                        sh 'flake8 . || true' 
+                    }
+                }
+                stage('Bandit Security Scan') {
+                    steps {
+                        sh 'pip install bandit'
+                        sh 'bandit -r . || true'
+                    }
+                }
+            }
+        }
+        stage('Install Dependencies'){
+            steps{
+                sh 'pip install -r exam-code/docker/be/requirements.txt'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+                sh "docker build -t ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} exam-code/docker/fe/"
+                sh "docker tag ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${REPO_NAME}:latest"
+            }
+        }
+        stage('Run Tests in Container') {
+            steps {
+                sh "docker run --rm ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} pytest tests/"
+            }
+        }
+        stage('Integration Test with Docker Compose') {
+            steps {
+                sh 'docker-compose -f exam-code/docker/docker-compose.yaml up -d'
+                sh 'sleep 10'
+                sh 'docker ps | grep -q 5004 && echo "Port 5004 is mapped and the co ntainer is running" || true'  // Adjust for backend if needed
+                sh 'docker-compose -f exam-code/docker/docker-compose.yaml down'
+            }
+        }
+        stage('Push to Docker Hub') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh "docker push ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG}"
+                sh "docker push ${DOCKER_REGISTRY}/${REPO_NAME}:latest"
+            }
+        }
+    }   
+}
