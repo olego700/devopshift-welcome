@@ -12,7 +12,6 @@ pipeline {
        IMAGE_TAG = "${env.BUILD_NUMBER}"
    }
    stages {
-    stages {
         stage('Setup Docker') {
             steps {
                 sh 'apt-get update && apt-get install -y docker.io'
