@@ -2,6 +2,7 @@ pipeline {
    agent {
        docker {
            image 'python:3.10'
+           args '-v /var/run/docker.sock:/var/run/docker.sock'
        }
    }
    environment {
@@ -11,6 +12,12 @@ pipeline {
        IMAGE_TAG = "${env.BUILD_NUMBER}"
    }
    stages {
+    stages {
+        stage('Setup Docker') {
+            steps {
+                sh 'apt-get update && apt-get install -y docker.io'
+            }
+        }
        stage('Clone Repository') {
            steps {
                git branch: 'workshop/argo-jenkins-exam', url: 'https://github.com/olego700/devopshift-welcome.git'
