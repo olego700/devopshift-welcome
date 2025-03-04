@@ -61,7 +61,7 @@ pipeline {
         }
         stage('Integration Test with Docker Compose') {
             steps {
-                sh 'docker-compose -f exam-code/docker/docker-compose.yaml -d'
+                sh 'docker-compose -f exam-code/docker/docker-compose.yaml up -d'
                 sh 'sleep 10'
                 sh 'curl -f http://localhost:5002 || exit 1'  // Adjust for backend if needed
                 sh 'docker-compose down'
