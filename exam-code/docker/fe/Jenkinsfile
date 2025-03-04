@@ -21,13 +21,13 @@ pipeline {
                 stage('Flake8 Linting') {
                     steps {
                         sh 'pip install flake8'
-                        sh 'flake8 src/' 
+                        sh 'flake8 .' 
                     }
                 }
                 stage('Bandit Security Scan') {
                     steps {
                         sh 'pip install bandit'
-                        sh 'bandit -r src/'
+                        sh 'bandit -r .'
                     }
                 }
             }
