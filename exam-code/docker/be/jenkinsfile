@@ -8,7 +8,7 @@ pipeline {
    environment {
        DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred')
        DOCKER_REGISTRY = 'olego700'
-       REPO_NAME = 'fe-exam'  // Frontend pipeline
+       REPO_NAME = 'be-exam'  // backend pipeline
        IMAGE_TAG = "${env.BUILD_NUMBER}"
    }
    stages {
@@ -45,7 +45,7 @@ pipeline {
         }
         stage('Install Dependencies'){
             steps{
-                sh 'pip install -r exam-code/docker/fe/requirements.txt'
+                sh 'pip install -r exam-code/docker/be/requirements.txt'
             }
         }
         stage('Build Docker Image') {
@@ -63,7 +63,7 @@ pipeline {
             steps {
                 sh 'docker-compose -f exam-code/docker/docker-compose.yaml up -d'
                 sh 'sleep 10'
-                sh 'docker ps | grep -q 5002 && echo "Port 5002 is mapped and the co ntainer is running" || true'  // Adjust for backend if needed
+                sh 'docker ps | grep -q 5004 && echo "Port 5004 is mapped and the co ntainer is running" || true'  // Adjust for backend if needed
                 sh 'docker-compose -f exam-code/docker/docker-compose.yaml down'
             }
         }
