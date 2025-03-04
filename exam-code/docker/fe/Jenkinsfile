@@ -8,7 +8,7 @@ pipeline {
    environment {
        DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred')
        DOCKER_REGISTRY = 'olego700'
-       REPO_NAME = 'fe-exam'  //### IMAGE NAME -  Change to 'be-exam' WHEN creating the backend pipeline
+       REPO_NAME = 'fe-exam'  // Frontend pipeline
        IMAGE_TAG = "${env.BUILD_NUMBER}"
    }
    stages {
@@ -45,13 +45,13 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t olego700/your-app:$BUILD_NUMBER"
-                sh "docker tag olego700/your-app:$BUILD_NUMBER olego700/your-app:latest"
+                sh "docker build -t ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} exam-code/docker/fe/"
+                sh "docker tag ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${REPO_NAME}:latest"
             }
         }
         stage('Run Tests in Container') {
             steps {
-                sh " docker run --rm olego700/your-app:$BUILD_NUMBER pytest tests/"
+                sh "docker run --rm ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} pytest tests/"
             }
         }
         stage('Integration Test with Docker Compose') {
