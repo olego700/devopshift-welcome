@@ -5,7 +5,7 @@ pipeline {
        }
    }
    environment {
-       DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred') # configure jenkins with your credentials 
+       DOCKERHUB_CREDENTIALS = credentials('dockerhub-cred')
        DOCKER_REGISTRY = 'olego700'
        REPO_NAME = 'fe-exam'  //### IMAGE NAME -  Change to 'be-exam' WHEN creating the backend pipeline
        IMAGE_TAG = "${env.BUILD_NUMBER}"
